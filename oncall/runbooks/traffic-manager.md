@@ -12,8 +12,40 @@ Use this runbook when a specific Azure region serving Batch/Matrix traffic must 
 - Planned maintenance on region-specific infrastructure (e.g., [Kubernetes](https://kubernetes.io/docs/home/) cluster upgrade, node pool drain).
 - A deployment rollout requires traffic to be drained before proceeding.
 - An incident requires isolating a region to limit the blast radius.
+- **A power outage affects the datacenter hosting the region** — disable the region immediately; see the Power Outage section below.
 
 Do **not** disable a region as a first reflex. Confirm the problem is region-specific and that disabling will improve overall service health before proceeding.
+
+---
+
+## Power Outage Procedure
+
+### When power goes out
+
+Disable the affected region in Traffic Manager immediately (follow the Disabling a Region procedure below). Do not wait to see if the outage is brief — disabling is safe and prevents clients from hitting a dead region while power is being restored.
+
+### When power comes back
+
+**Do not re-enable the region immediately.** The services need time to fully restart, warm up, and stabilise before accepting production traffic.
+
+> **Rule: if the region was down for 24 hours or more, wait at least 2 additional hours after power is restored before re-enabling it in Traffic Manager.**
+
+This buffer allows:
+- Kubernetes pods to restart and pass health checks
+- Pulsar to recover its state and topic subscriptions
+- Azure Blob Storage connections to re-establish
+- Any cached or stale state to flush
+
+For shorter outages (under 24 h), use your judgment — check the Health indicators dashboard and confirm pods are healthy before re-enabling. When in doubt, wait.
+
+### Re-enabling after a power outage
+
+1. Confirm power has been fully restored and is stable.
+2. Wait the appropriate cooldown period (2 h minimum after a 24 h+ outage).
+3. Check the [Health indicators dashboard](https://grafana.prod.tt-lns-batch.com/d/batch2-health-indicators-1/health-indicators?orgId=1) — all pods in the region should be green.
+4. Check [Blob storage dashboard](https://grafana.prod.tt-lns-batch.com/d/batch2-storage-1/blob-storage?orgId=1) for normal latency.
+5. Proceed with the Re-enabling a Region procedure below.
+6. Monitor for 15–30 minutes after re-enabling to catch any delayed failures.
 
 ---
 
