@@ -79,6 +79,8 @@ Any team member with the same **Eligible assignment** for a role can approve ano
 
 3. Select the pending request and click **Approve**, providing a justification comment.
 
+**Best practice:** Ask someone from **Team Stratus** (the owning team) to approve. Team Stratus members have the correct eligible assignments and context to approve safely. Ping the team on Slack rather than waiting for the automated email.
+
 **Expected wait time:** During business hours, approval usually arrives within a few minutes after pinging a teammate on Slack. Outside business hours, follow the out-of-hours procedure below — NOC handles approval instead.
 
 ---

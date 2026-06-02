@@ -112,6 +112,8 @@ Complete every item before going oncall solo.
 
 **How to activate (business hours):** Go to [PIM — My Roles](https://portal.azure.com/#blade/Microsoft_Azure_PIMCommon/ActivationMenuBlade/azurerbac). Click **Activate** next to the role, enter a reason and duration, then submit. Roles requiring approval send an email to all eligible team members. Track your request at [PIM — My requests](https://portal.azure.com/#blade/Microsoft_Azure_PIMCommon/RequestMenuBlade/azurerbac).
 
+**Who to ask for approval:** Ask someone from **Team Stratus** to approve — team members have the correct eligible assignments and understand the context. Ping the team on Slack rather than waiting for the automated email to be noticed.
+
 **How to approve a peer's request:** Go to [PIM — Approve requests](https://portal.azure.com/#blade/Microsoft_Azure_PIMCommon/ApproveRequestMenuBlade/azurerbac).
 
 **Out-of-hours (NOC approval):** Submit your PIM request as normal, then post in `#noc-pim-request` Slack using the pinned workflow form. NOC approves on your behalf. Full details: [Confluence 233902278](https://tomtom.atlassian.net/wiki/spaces/DIRECTIONS/pages/233902278).
