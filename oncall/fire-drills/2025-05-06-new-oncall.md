@@ -42,7 +42,7 @@ Base URL: https://grafana.prod.batch.tt4.nl/
 **Status Codes** (`[Front2 → Status codes]` / `[Kubernetes → Ingress haproxy]`):
 - Status codes: https://grafana.prod.batch.tt4.nl/d/batch2-status-codes-1/status-codes?from=now-30m&to=now&var-cluster_name=All&orgId=1
 - Status codes per client: https://grafana.prod.batch.tt4.nl/d/batch2-status-codes-per-client1/status-codes-per-client?from=now-30m&to=now&var-cluster_name=All&orgId=1
-- Kubernetes Ingress HAProxy: https://grafana.prod.batch.tt4.nl/d/kubernetes-ingresshaproxy-1/kubernetes-ingress-haproxy?from=now-30m&to=now&var-datasource=thanos-query&var-location=All&var-basename=All&var-cluster_name=All&var-percentile=0.95&var-apiKey=&var-customerToken=All&orgId=1
+- [Kubernetes](https://kubernetes.io) Ingress [HAProxy](https://www.haproxy.org): https://grafana.prod.batch.tt4.nl/d/kubernetes-ingresshaproxy-1/kubernetes-ingress-haproxy?from=now-30m&to=now&var-datasource=thanos-query&var-location=All&var-basename=All&var-cluster_name=All&var-percentile=0.95&var-apiKey=&var-customerToken=All&orgId=1
 
 **Executor** (`[Backend2 → Executor]`):
 - Executor Batch 1/2: https://grafana.prod.batch.tt4.nl/d/batch2-executor-batch12-1/executor-batch1-2?from=now-30m&to=now&var-datasource=thanos-query&var-location=All&var-basename=All&var-cluster_name=All&var-batch_version=All&var-apiKey=All&var-customerToken=All&var-subCustomerId=All&var-internal=All&var-percentile=0.95&orgId=1
@@ -60,7 +60,7 @@ Base URL: https://ci.dev.batch.tt4.nl/
 - Release job: https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Batch_Release/view/Simple_Batch_release/
   - List of past releases: https://github.com/tomtom-internal/batch-service2-infra/blob/master/RELEASES.md
 - Rollout batch pods: https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Batch/job/rollout_restart_batch_cluster_prod/
-- Rollout Pulsar pods: https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Pulsar/job/rollout_restart_pulsar_cluster_prod/
+- Rollout [Pulsar](https://pulsar.apache.org) pods: https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Pulsar/job/rollout_restart_pulsar_cluster_prod/
 
 ## Issues Encountered
 

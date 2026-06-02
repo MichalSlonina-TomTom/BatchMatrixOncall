@@ -9,7 +9,7 @@ Quota management drill for Classic Batch (Batch v1/v2). The drill covers underst
 
 - **1.2 QPS scope:**
   - QPS to Batch & Matrix itself — number of possible calls to submission and download endpoints
-  - QPS to calculateRoute / reverseGeocode / geocode / search / etc — processing speed
+  - QPS to calculateRoute / reverseGeocode / geocode / search / etc. — processing speed
 
 ## Participants
 
@@ -32,7 +32,7 @@ Limited content at time of documentation. See recording for participant details.
 
 ### Example Investigation
 
-Example Grafana URL used during the drill (scoped to a specific customer token and time window):
+Example [Grafana](https://grafana.com) URL used during the drill (scoped to a specific customer token and time window):
 
 ```
 https://grafana.prod.batch.tt4.nl/d/batch2-client-usage-allkeys-1/client-usage?from=2026-02-26T09:26:00.371Z&to=2026-02-26T09:30:39.136Z&timezone=UTC&var-cluster_name=$__all&var-customerToken=901a5973-a71f-4ea1-bd02-9745efe2a7fc&var-subCustomerId=$__all&var-groupBy=customerToken&orgId=1&var-datasource=thanos-query&var-location=$__all&var-basename=$__all&var-batch_version=12&var-apiKey=PpKE...LLjq&var-internal=$__all&var-percentile=0.95&var-adhoc=&viewPanel=panel-12

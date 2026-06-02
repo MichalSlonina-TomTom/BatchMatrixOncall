@@ -11,9 +11,9 @@
 
 Three categories of alerts were exercised during this fire drill:
 
-1. **AlertSite alerts** - problems reported from one AlertSite region; tracking IDs not found in matrix logs; "read timed out" with response time 0s (likely a network issue on AlertSite's side).
-2. **StatusCake alerts** - health down reported for multiple services; NOC was aware; multiple StatusCake emails triggered; multiple PagerDuty incidents related to "korea went down".
-3. **Grafana alerts** - async/sync not working; pods fresh after jumphost login with high (new) node number; cluster capacity alert for topic count over 800.
+1. **[AlertSite](https://smartbear.com/product/alertsite/) alerts** - problems reported from one AlertSite region; tracking IDs not found in matrix logs; "read timed out" with response time 0s (likely a network issue on AlertSite's side).
+2. **[StatusCake](https://www.statuscake.com/) alerts** - health down reported for multiple services; NOC was aware; multiple StatusCake emails triggered; multiple [PagerDuty](https://www.pagerduty.com/) incidents related to "korea went down".
+3. **[Grafana](https://grafana.com/) alerts** - async/sync not working; pods fresh after jumphost login with high (new) node number; cluster capacity alert for topic count over 800.
 
 ---
 
@@ -86,7 +86,7 @@ PagerDuty incident:
 - https://tomtom.pagerduty.com/incidents/Q0AOVKUMXC4G5U
 
 Steps:
-1. Identified the "Cluster capacity - urgent action required" alert, triggered when number of topics exceeds 800.
+1. Identified the "Cluster capacity - urgent action required" alert, triggered when the number of [Pulsar](https://pulsar.apache.org/) topics exceeds 800.
 2. Action when this alert fires: **"Do a pulsar release followed by a batch release NOW!"**
 
 ---

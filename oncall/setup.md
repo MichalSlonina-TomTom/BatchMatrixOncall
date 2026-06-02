@@ -326,3 +326,5 @@ For queue name lookup: `app.kubernetes.io\/instance="front12" "Created producer 
 4. **Attend a fire drill** — the team runs periodic drills simulating real incidents. Participation is required before solo oncall. Confirm the next date with your team lead.
 
 5. **Verify all bookmarks load** — open every Grafana URL in this guide and confirm data is visible before your first shift.
+
+6. **Review the BMW on-call cheatsheet** — see `oncall/bmw-oncall-cheatsheet.md` for a condensed reference covering BMW-specific client workflows and quick actions.

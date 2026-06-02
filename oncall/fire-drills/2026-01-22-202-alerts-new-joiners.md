@@ -18,7 +18,7 @@ Http code 202 does not indicate an error, but when many customers receive them, 
 On the alert dashboard, next to the alert, you will find a graph showing which customers get this status code.
 ```
 
-Background: HTTP 202 on the Asynchronous Batch Download endpoint means the batch response is not yet ready before the timeout. The client receives HTTP 202, the batch request is accepted for processing, and the client downloads batch results from the URL specified by the Location header. This is not necessarily an error, but when many customers receive it, it requires verification.
+Background: [HTTP 202](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/202) on the Asynchronous Batch Download endpoint means the batch response is not yet ready before the timeout. The client receives HTTP 202, the batch request is accepted for processing, and the client downloads batch results from the URL specified by the Location header. This is not necessarily an error, but when many customers receive it, it requires verification.
 
 Reference: https://developer.tomtom.com/batch-search-api/documentation/product-information/introduction
 
@@ -40,11 +40,11 @@ Limited content at time of documentation.
 
 ## Steps Performed
 
-### Incident 1 — PagerDuty Q1YAUSRZYCZW6X
+### Incident 1 — [PagerDuty](https://www.pagerduty.com/) Q1YAUSRZYCZW6X
 
 PagerDuty: https://tomtom.pagerduty.com/incidents/Q1YAUSRZYCZW6X
 
-Grafana dashboard (status codes alerts):
+[Grafana](https://grafana.com/) dashboard (status codes alerts):
 https://grafana.prod.batch.tt4.nl/d/alert-statuscodes-1/status-codes-alerts?from=2026-01-19T12:11:30.000Z&orgId=1&to=2026-01-19T13:12:02.531Z&timezone=UTC&var-location=$__all&var-basename=$__all&var-cluster_name=$__all&var-batch_version=$__all&var-customerToken=$__all&var-subCustomerId=$__all&var-internal=$__all
 
 Finding: one client, multiple API keys.
@@ -142,8 +142,8 @@ https://github.com/tomtom-internal/batch-service2-infra/blob/master/docs/glossar
 ### Useful Links
 
 - Grafana (dev): https://grafana.dev.batch.tt4.nl/
-- Logs (Loki): https://grafana.tomtomgroup.com/a/grafana-lokiexplore-app/explore/service/batch-matrix-waypoint/logs?patterns=%5B%5D&from=now-15m&to=now&var-lineFormat=&var-ds=de3q4p49ry2gwf&var-filters=service_name%7C%3D%7Cbatch-matrix-waypoint&var-fields=&var-levels=&var-metadata=&var-jsonFields=&var-patterns=&var-lineFilterV2=&var-lineFilters=&timezone=browser&var-all-fields=&displayedFields=%5B%5D&urlColumns=%5B%5D&visualizationType=%22logs%22&prettifyLogMessage=false&sortOrder=%22Ascending%22&wrapLogMessage=false
-- Azure dev subscription: https://portal.azure.com/#@TomTomInternational.onmicrosoft.com/resource/subscriptions/9b2c1b4c-3f07-4721-951e-1b6b28654863/overview
+- Logs ([Loki](https://grafana.com/oss/loki/)): https://grafana.tomtomgroup.com/a/grafana-lokiexplore-app/explore/service/batch-matrix-waypoint/logs?patterns=%5B%5D&from=now-15m&to=now&var-lineFormat=&var-ds=de3q4p49ry2gwf&var-filters=service_name%7C%3D%7Cbatch-matrix-waypoint&var-fields=&var-levels=&var-metadata=&var-jsonFields=&var-patterns=&var-lineFilterV2=&var-lineFilters=&timezone=browser&var-all-fields=&displayedFields=%5B%5D&urlColumns=%5B%5D&visualizationType=%22logs%22&prettifyLogMessage=false&sortOrder=%22Ascending%22&wrapLogMessage=false
+- [Azure](https://azure.microsoft.com/) dev subscription: https://portal.azure.com/#@TomTomInternational.onmicrosoft.com/resource/subscriptions/9b2c1b4c-3f07-4721-951e-1b6b28654863/overview
   - Test deployment: ms1-dev-westeurope
-  - Message broker: pulsar 57-dev-westeurope
+  - Message broker: [Apache Pulsar](https://pulsar.apache.org/) 57-dev-westeurope
   - Monitoring: monitoring 100-dev-westeurope

@@ -7,7 +7,7 @@ Fire drill for the Waypoint Optimization API service. Participants practice acce
 Reference links used during drill:
 
 - Access checklist: https://tomtom.atlassian.net/wiki/spaces/DIRECTIONS/pages/1950418249
-- Oncall runbook (PULNS): https://tomtom.atlassian.net/wiki/spaces/PULNS/pages/139536835
+- On-call runbook (PULNS): https://tomtom.atlassian.net/wiki/spaces/PULNS/pages/139536835
 - Public API docs: https://developer.tomtom.com/waypoint-optimization/documentation/waypoint-optimization
 - Source repository: https://github.com/tomtom-internal/routing-waypoint-optimization
 - Feature examples (HTTP): https://github.com/tomtom-internal/routing-waypoint-optimization/blob/main/for_presentations/feature_examples.http
@@ -20,8 +20,8 @@ Reference links used during drill:
 ## Steps Performed
 
 1. Verified access checklist at https://tomtom.atlassian.net/wiki/spaces/DIRECTIONS/pages/1950418249
-2. Reviewed oncall runbook at https://tomtom.atlassian.net/wiki/spaces/PULNS/pages/139536835
-3. Checked pod status in the default namespace and `waypoints` namespace:
+2. Reviewed on-call runbook at https://tomtom.atlassian.net/wiki/spaces/PULNS/pages/139536835
+3. Checked pod status in the default [Kubernetes](https://kubernetes.io/) namespace and `waypoints` namespace:
 
 ```
 adrian.pedziwiatr@pl1lxl-PW0KZ9F6:~$ kubectl get pod

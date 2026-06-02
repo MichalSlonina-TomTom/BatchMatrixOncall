@@ -2,7 +2,7 @@
 
 ## Scenario
 
-The fire drill took place on 2025-07-22 and covered a `no_healthy_upstream` error that caused a brief outage on the MatrixV2 Async endpoint, as well as a related Redis container restart alert and a `waypoints INTERNAL_SERVER_ERROR` issue that surfaced in the same period.
+The fire drill took place on 2025-07-22 and covered a `no_healthy_upstream` error that caused a brief outage on the MatrixV2 Async endpoint, as well as a related [Redis](https://redis.io) container restart alert and a `waypoints INTERNAL_SERVER_ERROR` issue that surfaced in the same period.
 
 ## Participants
 
@@ -13,7 +13,7 @@ https://tomtominternational-my.sharepoint.com/:v:/g/personal/adrian_pedziwiatr_t
 
 ### Incident 1: Redis container restarts alert
 
-PagerDuty: https://tomtom.pagerduty.com/incidents/Q03A6AN9QK73IU
+[PagerDuty](https://www.pagerduty.com): https://tomtom.pagerduty.com/incidents/Q03A6AN9QK73IU
 Open: Jul 18, 2025 at 7:38 PM – 8:08 PM (30 minutes)
 
 Alert: "redis (index 0) number of container restarts alert"
@@ -23,8 +23,8 @@ Alert: "redis (index 0) number of container restarts alert"
   - Deferred deeper investigation to business hours.
 
 - **Business hours follow-up:**
-  - Identified that restarts were isolated to one cluster; one Redis instance was restarting with errors in the connection to the Kubernetes API.
-  - Grafana: https://grafana.tomtomgroup.com/goto/-CVvXuUHg?orgId=1
+  - Identified that restarts were isolated to one cluster; one Redis instance was restarting with errors in the connection to the [Kubernetes](https://kubernetes.io) API.
+  - [Grafana](https://grafana.com): https://grafana.tomtomgroup.com/goto/-CVvXuUHg?orgId=1
   - Mitigation: drained the affected node.
 
 ### Incident 2: no_healthy_upstream on MatrixV2 Async
