@@ -194,6 +194,10 @@ Check the **"Async matrices - parallel batch processing"** panel for a growing b
 2. Check [Blob storage dashboard](https://grafana.prod.tt-lns-batch.com/d/batch2-storage-1/blob-storage?orgId=1) for [Azure Blob Storage](https://learn.microsoft.com/en-us/azure/storage/blobs/) latency.
 3. Perform rollout restart of Matrix v2 components via [Jenkins](https://www.jenkins.io/doc/): [rollout_restart_batch_cluster_prod](https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Batch/job/rollout_restart_batch_cluster_prod/)
 4. If restart does not help, perform rollout restart of the Pulsar cluster: [rollout_restart_pulsar_cluster_prod](https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Pulsar/job/rollout_restart_pulsar_cluster_prod/)
+5. If Grafana monitoring confirms an ongoing issue and restart does not resolve it, run the release job to redeploy:
+   **Jenkins:** Batch → Prod → Batch_Release → Simple_Batch_release
+   https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Batch_Release/view/Simple_Batch_release/
+   Check [RELEASES.md](https://github.com/tomtom-internal/batch-service2-infra/blob/master/RELEASES.md) for a known-good branch. Enable `PANIC_MODE` for faster deployment during an active incident (~30 min total).
 
 ### Other reasons for slow processing (component-level issues)
 

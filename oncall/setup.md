@@ -63,7 +63,7 @@ Complete every item before going oncall solo.
 
 ### Jenkins CI
 - [ ] 29. Request access to `https://ci.dev.batch.tt4.nl` and bookmark [rollout_restart_batch_cluster_prod](https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Batch/job/rollout_restart_batch_cluster_prod/)
-- [ ] 30. Bookmark [rollout_restart_pulsar_cluster_prod](https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Pulsar/job/rollout_restart_pulsar_cluster_prod/) and [deploy_jumphost_prod](https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Jumphost/job/deploy_jumphost_prod/)
+- [ ] 30. Bookmark [rollout_restart_pulsar_cluster_prod](https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Pulsar/job/rollout_restart_pulsar_cluster_prod/), [deploy_jumphost_prod](https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Jumphost/job/deploy_jumphost_prod/), and [Simple_Batch_release](https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Batch_Release/view/Simple_Batch_release/) (use after Grafana confirms issue and rollout restart fails)
 
 ### Apache Pulsar
 - [ ] 31. Verify jumphost + AKS access (prerequisite), then locate `pulsar-toolset` pod and confirm you can exec into it
@@ -262,6 +262,7 @@ For queue name lookup: `app.kubernetes.io\/instance="front12" "Created producer 
 | --- | --- | --- |
 | `rollout_restart_batch_cluster_prod` | [link](https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Batch/job/rollout_restart_batch_cluster_prod/) | Restart front12/backend12 when processing has stalled |
 | `rollout_restart_pulsar_cluster_prod` | [link](https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Pulsar/job/rollout_restart_pulsar_cluster_prod/) | Restart Pulsar when backlog grows and consumers stop polling |
+| `Simple_Batch_release` | [link](https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Batch_Release/view/Simple_Batch_release/) | **Redeploy a known-good release.** Use when Grafana confirms an issue and a rollout restart does not fix it. Set `RELEASE_CANDIDATE_BRANCH` from [RELEASES.md](https://github.com/tomtom-internal/batch-service2-infra/blob/master/RELEASES.md); enable `PANIC_MODE` during active incidents (~30 min). |
 | `deploy_jumphost_prod` | [link](https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Jumphost/job/deploy_jumphost_prod/) | Redeploy jumphost VM; new VM inherits existing DNS |
 
 ---

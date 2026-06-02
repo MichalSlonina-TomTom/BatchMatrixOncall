@@ -247,6 +247,20 @@ When a queue appears genuinely stuck and infrastructure checks show nothing obvi
 
 Both are Jenkins jobs that perform rolling restarts without downtime. Run the Batch restart first; only escalate to Pulsar restart if the Batch restart does not resolve the issue, or if Pulsar itself shows unhealthy indicators on the health dashboard.
 
+### 5e. Release job as a fix
+
+If Grafana monitoring confirms an issue (errors, unhealthy indicators, stuck processing) and a rollout restart does not resolve it, try running the release job to redeploy the latest known-good version:
+
+**Jenkins:** Batch → Prod → Batch_Release → Simple_Batch_release
+https://ci.dev.batch.tt4.nl/view/Batch/view/Prod/view/Batch_Release/view/Simple_Batch_release/
+
+1. Check recent releases for a known-good branch: https://github.com/tomtom-internal/batch-service2-infra/blob/master/RELEASES.md
+2. Enter the target branch into the `RELEASE_CANDIDATE_BRANCH` field.
+3. Enable `PANIC_MODE` to speed up deployment if the incident is ongoing.
+4. Wait for the job to complete (~30 min).
+
+Use this after a rollout restart fails, or when you suspect the current deployment itself is broken rather than a transient runtime issue.
+
 ---
 
 ## NOC-Specific Section
