@@ -1,0 +1,37 @@
+sequenceDiagram
+    autonumber
+    participant P as Apache Pulsar<br/>(message queue)
+    participant B as backend12<br/>(batch processor)
+    participant RL as Rate Limiter<br/>(multi-quota mapping)
+    participant APIM as Apigee / APIM
+    participant US as Underlying Service<br/>(Routing / Search API)
+    participant BS as Azure Blob Storage
+
+    P->>B: deliver batch message (batchId, apiKey, items[])
+    activate B
+    note over B: max 40 concurrent batches<br/>per service (Pulsar unacked limit)
+
+    loop For each item in batch
+        B->>RL: request slot (quota name = endpoint type)
+        note over RL: multi-quota-mapping:<br/>routing1, search1, geocode1,<br/>reverse-geocode1, etc.
+        RL-->>RL: check concurrent requests limit<br/>(derived from customer QPS × multiplier)
+        alt slot available
+            RL-->>B: grant slot
+            B->>APIM: HTTP request (client API key, item payload)
+            APIM-->>APIM: enforce per-second quota<br/>(OnlineRouting_quotaPerSecond etc.)
+            APIM->>US: forward to underlying service
+            US-->>APIM: response (200 / 4xx / 5xx)
+            APIM-->>B: response
+            B-->>RL: release slot
+            B-->>B: store item result
+        else quota exceeded (429 / 403)
+            APIM-->>B: 429 Too Many Requests
+            B-->>RL: release slot
+            B-->>B: back-off & retry item
+        end
+    end
+
+    B->>BS: write aggregated result file (batchId.json)
+    BS-->>B: write confirmed
+    B-->>P: ack message (remove from backlog)
+    deactivate B

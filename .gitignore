@@ -216,3 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Generated build artifacts
+diagrams/*.png
+diagrams/*.svg

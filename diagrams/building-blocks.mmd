@@ -1,0 +1,43 @@
+flowchart TD
+    Client([External Client])
+    APIM[Apigee / APIM\nQuota Enforcement]
+    ATM[Azure Traffic Manager\nDNS Load Balancing]
+    front12[front12-deployment\nHTTP Frontend]
+    Pulsar[(Apache Pulsar\nMessage Broker)]
+    backend12[backend12-deployment\nBatch Processor]
+    Blob[(Azure Blob Storage\nResult Store)]
+    Underlying[Underlying Services\nRouting API / Search API / ...]
+
+    Client -->|HTTPS| APIM
+    APIM -->|quota-checked request| ATM
+    ATM -->|region-routed request| front12
+    front12 -->|enqueue job| Pulsar
+    front12 -->|202 Accepted| Client
+    Pulsar -->|dequeue job| backend12
+    backend12 -->|HTTP + client API key| Underlying
+    backend12 -->|store result| Blob
+    Client -->|poll result| front12
+    front12 -->|read result| Blob
+
+    subgraph batch-service2-1.2 [Batch and Matrix 1.2 - batch-service2-1.2]
+        front12
+        backend12
+    end
+
+    subgraph infra [Shared Infrastructure - batch-service2-infra]
+        Pulsar
+        Blob
+        ATM
+        APIM
+    end
+
+    subgraph matrixv2 [Matrix Routing v2 - batch-service2]
+        frontV2[front-deployment\nHTTP Frontend - Matrix v2]
+        backendV2[backend-deployment\nBatch Processor - Matrix v2]
+    end
+
+    ATM -->|Matrix v2 traffic| frontV2
+    frontV2 -->|enqueue| Pulsar
+    Pulsar -->|dequeue| backendV2
+    backendV2 -->|HTTP + client API key| Underlying
+    backendV2 -->|store result| Blob

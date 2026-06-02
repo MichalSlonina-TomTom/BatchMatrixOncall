@@ -1,0 +1,43 @@
+sequenceDiagram
+    autonumber
+    participant C as Client
+    participant APIM as Apigee / APIM<br/>(quota enforcement)
+    participant F as front12<br/>(HTTP frontend)
+    participant P as Apache Pulsar<br/>(message queue)
+    participant B as backend12<br/>(batch processor)
+    participant US as Underlying Service<br/>(Routing / Search API)
+    participant BS as Azure Blob Storage<br/>(result store)
+
+    C->>APIM: POST /batch/submit (API key, up to 10k items)
+    APIM-->>APIM: enforce QPS quota (OnlineRoutingBatch_quotaPerSecond)
+    APIM->>F: forward request
+    F-->>F: validate request, resolve customer token
+    F->>P: publish message (batch ID, customer token, API key)
+    F-->>C: 202 Accepted (Location: /batch/{batchId}/status)
+
+    loop Client polling (until result ready)
+        C->>APIM: GET /batch/{batchId}/status
+        APIM->>F: forward request
+        F-->>C: 202 Accepted (still processing)
+    end
+
+    P->>B: deliver message (up to 40 concurrent per service)
+    activate B
+    loop Process each batch item
+        B->>APIM: forward item request (client API key)
+        APIM-->>APIM: enforce underlying service QPS quota
+        APIM->>US: GET /routing or /search (client API key)
+        US-->>B: item response
+        B-->>B: rate-limit (multi-quota mapping per endpoint type)
+    end
+    B->>BS: write aggregated result
+    B-->>P: ack message
+    deactivate B
+
+    C->>APIM: GET /batch/{batchId}/status
+    APIM->>F: forward request
+    F->>BS: check result exists
+    BS-->>F: result present
+    F-->>C: 303 See Other (Location: signed blob URL)
+    C->>BS: GET signed URL
+    BS-->>C: download aggregated result (JSON)

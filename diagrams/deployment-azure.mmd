@@ -1,0 +1,73 @@
+flowchart TB
+    subgraph Client["Client / APIM (Apigee)"]
+        APIM["APIM\napi.tomtom.com\neu.api.tomtom.com"]
+    end
+
+    subgraph TM["Azure Traffic Manager (DNS geo-routing)"]
+        TM_GLOBAL["global-prod-submission12\nglobal-prod-submission13"]
+        TM_EU["eu-prod-submission12\neu-prod-submission13"]
+        TM_US["us-prod-submission12\nus-prod-submission13"]
+    end
+
+    APIM --> TM_GLOBAL
+    APIM --> TM_EU
+    APIM --> TM_US
+
+    subgraph EU["Azure — EU Regions"]
+        subgraph WE["West Europe (a1)"]
+            WE_AKS["AKS Cluster\nfront12 / backend12"]
+            WE_PULSAR["Apache Pulsar\nCluster"]
+            WE_BLOB["Azure Blob Storage\nbatch-core-prd"]
+        end
+        subgraph NE["North Europe (b1)"]
+            NE_AKS["AKS Cluster\nfront12 / backend12"]
+            NE_PULSAR["Apache Pulsar\nCluster"]
+            NE_BLOB["Azure Blob Storage\nbatch-core-prd"]
+        end
+    end
+
+    subgraph US["Azure — US Regions"]
+        subgraph WUS["West US 2 (a2)"]
+            WUS_AKS["AKS Cluster\nfront12 / backend12"]
+            WUS_PULSAR["Apache Pulsar\nCluster"]
+            WUS_BLOB["Azure Blob Storage\nbatch-core-prd"]
+        end
+        subgraph EUS["East US (b2)"]
+            EUS_AKS["AKS Cluster\nfront12 / backend12"]
+            EUS_PULSAR["Apache Pulsar\nCluster"]
+            EUS_BLOB["Azure Blob Storage\nbatch-core-prd"]
+        end
+    end
+
+    TM_EU --> WE_AKS
+    TM_EU --> NE_AKS
+    TM_US --> WUS_AKS
+    TM_US --> EUS_AKS
+    TM_GLOBAL --> WE_AKS
+    TM_GLOBAL --> WUS_AKS
+
+    WE_AKS --> WE_PULSAR
+    WE_AKS --> WE_BLOB
+    WE_PULSAR --> WE_AKS
+
+    NE_AKS --> NE_PULSAR
+    NE_AKS --> NE_BLOB
+    NE_PULSAR --> NE_AKS
+
+    WUS_AKS --> WUS_PULSAR
+    WUS_AKS --> WUS_BLOB
+    WUS_PULSAR --> WUS_AKS
+
+    EUS_AKS --> EUS_PULSAR
+    EUS_AKS --> EUS_BLOB
+    EUS_PULSAR --> EUS_AKS
+
+    subgraph CI["Deployment Pipeline"]
+        JENKINS["Jenkins CI\nci.dev.batch.tt4.nl"]
+        GITHUB["GitHub\ntomtom-internal org"]
+        GITHUB --> JENKINS
+        JENKINS -->|"deploy"| WE_AKS
+        JENKINS -->|"deploy"| NE_AKS
+        JENKINS -->|"deploy"| WUS_AKS
+        JENKINS -->|"deploy"| EUS_AKS
+    end

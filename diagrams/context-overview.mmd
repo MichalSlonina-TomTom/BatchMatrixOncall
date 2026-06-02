@@ -1,0 +1,20 @@
+graph LR
+    Client["External API Consumer\n(third-party developer)"]
+    ATM["Azure Traffic Manager\n(multi-region routing)"]
+    BM["Batch&Matrix\n(front12 + backend12\n+ Pulsar + Blob Storage)"]
+    Apigee["Apigee / APIM\n(quota enforcement)"]
+    Routing["TomTom Routing API"]
+    Search["TomTom Search API\n(incl. Geocoding &\nReverse Geocoding)"]
+    Geocoding["TomTom Extended\nSearch APIs"]
+    NOC["NOC\n(monitoring & alerts)"]
+    Jenkins["Jenkins CI\n(build & deploy)"]
+
+    Client -->|"HTTPS batch submission\n(up to 10k queries)"| ATM
+    ATM -->|"routes to nearest\nactive region"| Apigee
+    Apigee -->|"quota-checked request"| BM
+    BM -->|"individual route queries"| Routing
+    BM -->|"individual search queries"| Search
+    BM -->|"individual geocoding queries"| Geocoding
+    BM -->|"aggregated results\n(sync or async)"| Client
+    NOC -->|"monitors dashboards\nreceives PagerDuty alerts"| BM
+    Jenkins -->|"deploys artifacts\nto all regions"| BM
