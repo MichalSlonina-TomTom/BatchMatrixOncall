@@ -29,6 +29,7 @@ Complete every item before going oncall solo.
 - [ ] 5. Ask your team lead to verify you have **Eligible** assignments for all four PIM roles (see Section 2)
 - [ ] 6. Practice requesting a role at [PIM — My Roles](https://portal.azure.com/#blade/Microsoft_Azure_PIMCommon/ActivationMenuBlade/azurerbac)
 - [ ] 7. Verify you can reach the [PIM Approve requests page](https://portal.azure.com/#blade/Microsoft_Azure_PIMCommon/ApproveRequestMenuBlade/azurerbac)
+- [ ] 7a. Bookmark `oncall/azure-pim-cheatsheet.md` — CLI-only workflow to activate all four roles without a browser
 - [ ] 8. Join the `#noc-pim-request` Slack channel (out-of-hours NOC approvals)
 
 ### Jumphost SSH Access
